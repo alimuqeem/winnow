@@ -36,16 +36,40 @@ oversized videos. It works directly on your Photos library, and nothing leaves y
 > Winnow is a free, personal open-source project with no warranty. Make sure you have
 > a backup of your Photos library (Time Machine, or iCloud Photos) before deleting things.
 
-## Requirements
+## Download
 
-- macOS 26 or later, on Apple silicon (Intel untested)
+Requires **macOS 26 or later** (universal: Apple silicon and Intel; Intel is untested).
+
+1. Download **Winnow-x.y.z.zip** from the [latest release](https://github.com/alimuqeem/winnow/releases/latest)
+   and double-click it to unzip.
+2. Drag **Winnow.app** into your Applications folder.
+3. Open it. Because this free build isn't notarised by Apple, macOS will say it
+   can't verify the app. Click **Done** (not Move to Bin), then open
+   **System Settings › Privacy & Security**, scroll down to the message about Winnow
+   and click **Open Anyway**, then confirm. You only do this once.
+4. When asked for Photos access, choose **Allow Full Access**.
+
+<details>
+<summary>Prefer the Terminal?</summary>
+
+```sh
+xattr -dr com.apple.quarantine /Applications/Winnow.app
+open /Applications/Winnow.app
+```
+</details>
+
+Each release lists a SHA-256 checksum so you can check the download:
+`shasum -a 256 ~/Downloads/Winnow-*.zip`. If you'd rather not run a downloaded
+binary, build it yourself from source; it's the same code.
+
+## Build from source
+
+Requirements:
+
+- macOS 26 or later
 - Xcode 26 or later
 - [XcodeGen](https://github.com/yonaskolb/XcodeGen) (`brew install xcodegen`)
 - A free Apple ID signed in to Xcode (Xcode › Settings › Accounts) for code signing
-
-## Build and run
-
-There's no notarised download yet, so you build it yourself:
 
 ```sh
 git clone https://github.com/alimuqeem/winnow.git
@@ -77,6 +101,7 @@ it resumes where it left off.
 ```sh
 scripts/xc.sh test        # unit tests (WinnowCore)
 scripts/check-core.sh     # core build + smoke test with plain swiftc (no Xcode needed)
+scripts/release.sh        # universal, ad-hoc signed Winnow-<version>.zip in build/release
 ```
 
 Self-tests run against your real library and **never delete anything**:

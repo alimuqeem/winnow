@@ -8,6 +8,8 @@ settings:
   base:
     SWIFT_VERSION: "6.0"
     MACOSX_DEPLOYMENT_TARGET: "26.0"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
     # Your team, from local.env via scripts/bootstrap.sh (a free Personal Team works).
     # A stable signature keeps the Photos permission across rebuilds; ad-hoc would re-prompt.
     CODE_SIGN_STYLE: Automatic
@@ -34,6 +36,9 @@ targets:
       path: Sources/Winnow/Info.plist
       properties:
         CFBundleDisplayName: Winnow
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSHumanReadableCopyright: "© 2026 Ali Muqeem. MIT licence."
         LSApplicationCategoryType: public.app-category.photography
         NSPhotoLibraryUsageDescription: Winnow scans your Photos library on this Mac to find similar shots and oversized videos. Nothing leaves your device.
     settings:
