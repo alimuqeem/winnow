@@ -30,6 +30,7 @@ codesign --verify --deep --strict "$app"
 cp -R "$app" "$out/Winnow.app"
 zip="$out/Winnow-$version.zip"
 ditto -c -k --keepParent "$out/Winnow.app" "$zip"
-shasum -a 256 "$zip" | tee "$zip.sha256"
+# Checksum file names only the zip, so `shasum -a 256 -c` works next to the download.
+(cd "$out" && shasum -a 256 "${zip:t}" | tee "${zip:t}.sha256")
 echo "archs: $(lipo -archs "$out/Winnow.app/Contents/MacOS/Winnow")"
 echo "built $zip"
